@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Задания к аттестации</title>
+<style>
+body{margin:0;font:16px/1.4 system-ui;background:#111;color:#eee;display:flex;flex-direction:column;align-items:center}
+main{width:min(640px,94vw);padding-bottom:60px}
+nav{display:flex;gap:8px;padding:14px 0;flex-wrap:wrap}
+button,a.b{font:inherit;border:0;border-radius:10px;padding:10px 14px;background:#2a2a2a;color:#eee;text-decoration:none}
+nav .on{background:#16223a}
+.box{background:#1c1c1e;border-radius:16px;padding:18px;margin:10px 0}
+input,textarea{font:inherit;background:#0b0b0c;color:#eee;border:1px solid #333;border-radius:8px;padding:8px;box-sizing:border-box}
+.row{display:flex;align-items:center;gap:8px;margin:6px 0}.row label{width:150px;color:#999;font-size:14px}.row input{flex:1;min-width:0}
+.ok{border-color:#2f8f4a!important}.bad{border-color:#b33!important}
+.ans{color:#8fd19e;margin-top:8px;display:none}
+textarea{width:100%;min-height:60px}
+.gap{width:90px;text-align:center}
+small{color:#888}
+</style></head><body><main>
+<nav><a class="b" href="./">← Карточки</a><button data-t="1">1. Причастия</button><button data-t="2">2. Перевод</button><button data-t="3">3. Предлоги</button></nav>
+<div id="out"></div>
+<script>
+const $=s=>document.querySelector(s), norm=s=>s.trim().toLowerCase().replace(/\s+/g,' ');
+// base, V-ing, V3
+const V=`sign signing signed
+invest investing invested
+ban banning banned
+pass passing passed
+abolish abolishing abolished
+fund funding funded
+halt halting halted
+impose imposing imposed
+lift lifting lifted
+reach reaching reached
+grant granting granted
+reduce reducing reduced
+conclude concluding concluded
+ratify ratifying ratified
+cancel cancelling cancelled
+write writing written
+take taking taken
+make making made
+hold holding held
+give giving given
+build building built
+break breaking broken
+withdraw withdrawing withdrawn
+overcome overcoming overcome
+seek seeking sought
+meet meeting met
+begin beginning begun
+lay laying laid
+send sending sent
+undertake undertaking undertaken`.split('\n').map(l=>l.split(' '));
+const T=[
+["Подписав соглашение, министры обменялись мнениями.","Having signed the agreement, the ministers exchanged views."],
+["Законопроект, принятый парламентом, запрещает испытания ядерного оружия.","The bill passed by parliament bans nuclear tests."],
+["Компания, вкладывающая большие средства в бизнес, создаёт новые рабочие места.","The company investing heavily in business creates new jobs."],
+["Делегация, возглавляемая послом, прибыла вчера.","The delegation headed (led) by the ambassador arrived yesterday."],
+["Прибыв в страну с визитом, президент провёл переговоры.","Having arrived on a visit, the President held talks."],
+["Они обвинили страну в нарушении эмбарго.","They accused the country of violating the embargo."],
+["Он настаивал на отмене санкций.","He insisted on lifting (dropping) the sanctions."],
+["Отменив ограничения, страна увеличила торговый оборот.","Having lifted the restrictions, the country increased its trade turnover."],
+["Пакт о ненападении, заключённый в прошлом году, остановил гонку вооружений.","The non-aggression pact concluded last year halted the arms race."],
+["Рабочие места, созданные новым совместным предприятием, помогли региону.","The jobs created by the new joint venture helped the region."],
+["Страна, получающая прибыль от торговли, вкладывает деньги в промышленность.","The country enjoying a trade surplus invests in industry."],
+["Правительство занято сбором средств на новые проекты.","The government is busy raising funds for new projects."],
+["Мы рассчитываем на расширение торговых связей.","We are looking forward to extending trade ties."],
+["Решение, принятое вчера, предусматривает укрепление доверия.","The decision taken yesterday provides for strengthening trust."],
+["Он извинился за то, что поднял шум.","He apologised for making (kicking up) a row."],
+["Не заключив договор, стороны продолжили переговоры.","Without having concluded the treaty, the parties continued the talks."],
+["Остановив распространение ядерного оружия, соперничающие страны устранили главное препятствие.","Having halted the proliferation of nuclear weapons, the rival nations removed the main hurdle."],
+["Преодолев разногласия, они подписали договор о взаимной защите капиталовложений.","Having overcome their differences, they signed a treaty on mutual investment protection."],
+["Выступая в парламенте, министр подчеркнул важность двустороннего сотрудничества.","Addressing parliament, the minister emphasized the importance of bilateral cooperation."],
+["Эмбарго, нарушенное фирмой, было продлено.","The embargo violated by the firm was extended."]];
+const P=[
+["This land belongs ___ the state.","to"],["He is interested ___ trade with Asia.","in"],["They succeeded ___ signing the agreement.","in"],
+["She insisted ___ holding talks at once.","on"],["He is responsible ___ negotiating the deal.","for"],["We are looking forward ___ meeting you.","to"],
+["They accused him ___ violating the embargo.","of"],["Sanctions prevented the firm ___ exporting goods.","from"],["He is afraid ___ losing the market.","of"],
+["She is tired ___ waiting for the answer.","of"],["The country is capable ___ solving this problem.","of"],["___ imposing sanctions, they chose talks. (instead)","of"],
+["He apologised ___ being late.","for"],["The minister is used ___ speaking in public.","to"],["We object ___ being left out of the talks.","to"],
+["Success depends ___ boosting output.","on"],["The policy resulted ___ reducing the gap.","in"],["He persists ___ rejecting the offer.","in"],
+["She was suspected ___ leaking the plan.","of"],["They congratulated him ___ winning the election.","on"],["He is keen ___ promoting cooperation.","on"],
+["The government is committed ___ strengthening ties.","to"],["The talks are aimed ___ boosting trade.","at"],["They blamed him ___ stepping up repression.","for"],
+["We rely ___ importing fuel.","on"],["She is fond ___ reading newspapers.","of"],["He thanked them ___ welcoming the delegation.","for"],
+["The visit contributed ___ improving relations.","to"],["They are in favour ___ lifting the ban.","of"],["He is concerned ___ the growing rivalry.","about / with"],
+["The aim ___ the visit is to sign the pact.","of"],["He is good ___ solving disputes through negotiations.","at"],["They agreed ___ holding a summit meeting.","on / to"]];
+let tab=1;
+const sh=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]);
+function t1(){
+  const v=sh(V).slice(0,8);
+  const d=document.createElement('div');
+  d.innerHTML='<small>Заполни пять форм причастий. Перфектные формы: having + V3, having been + V3.</small>';
+  v.forEach(([b,g,p])=>{
+    const f=[['Participle I Active',g],['Participle I Passive','being '+p],['Participle II',p],['Perfect Active','having '+p],['Perfect Passive','having been '+p]];
+    const bx=document.createElement('div');bx.className='box';bx.innerHTML=`<b>to ${b}</b>`;
+    const ins=f.map(([l,a])=>{const r=document.createElement('div');r.className='row';r.innerHTML=`<label>${l}</label>`;const i=document.createElement('input');i.autocapitalize='off';r.append(i);bx.append(r);return [i,a]});
+    const k=document.createElement('button');k.textContent='Проверить';
+    const an=document.createElement('div');an.className='ans';an.textContent=f.map(x=>x[1]).join(' · ');
+    k.onclick=()=>{ins.forEach(([i,a])=>{const ok=norm(i.value)===a;i.className=ok?'ok':'bad'});an.style.display='block'};
+    bx.append(k,an);d.append(bx)});
+  const n=document.createElement('button');n.textContent='Новые глаголы';n.onclick=draw;d.append(n);return d}
+function t2(){
+  const d=document.createElement('div');
+  d.innerHTML='<small>Переведи письменно, потом открой пример. Твой вариант может отличаться (причастие или герундий), это нормально.</small>';
+  sh(T).slice(0,8).forEach(([r,e])=>{
+    const bx=document.createElement('div');bx.className='box';bx.innerHTML=`<div>${r}</div>`;
+    const ta=document.createElement('textarea');const k=document.createElement('button');k.textContent='Показать ответ';
+    const an=document.createElement('div');an.className='ans';an.textContent=e;k.onclick=()=>an.style.display='block';
+    bx.append(ta,k,an);d.append(bx)});
+  const n=document.createElement('button');n.textContent='Новые предложения';n.onclick=draw;d.append(n);return d}
+function t3(){
+  const d=document.createElement('div');
+  d.innerHTML='<small>Впиши предлог. Выучи пары слово+предлог: belong to, succeed in, accuse of…</small>';
+  const bx=document.createElement('div');bx.className='box';const rows=[];
+  sh(P).slice(0,12).forEach(([s,a])=>{
+    const r=document.createElement('div');r.className='row';const [x,y]=s.split('___');
+    const i=document.createElement('input');i.className='gap';i.autocapitalize='off';
+    r.append(x,i,y);bx.append(r);rows.push([i,a])});
+  const k=document.createElement('button');k.textContent='Проверить';
+  k.onclick=()=>rows.forEach(([i,a])=>{const ok=a.split(' / ').includes(norm(i.value));i.className='gap '+(ok?'ok':'bad');i.title=a;if(!ok)i.value=i.value+' → '+a});
+  const n=document.createElement('button');n.textContent='Новые пропуски';n.onclick=draw;
+  bx.append(k,' ',n);d.append(bx);return d}
+function draw(){
+  document.querySelectorAll('nav button').forEach(b=>b.className=+b.dataset.t===tab?'on':'');
+  const o=$('#out');o.replaceChildren([t1,t2,t3][tab-1]())}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{tab=+b.dataset.t;draw()});
+draw();
+</script></main></body></html>
