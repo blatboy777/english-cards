@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>English cards</title>
+<style>
+body{margin:0;font:16px system-ui;background:#111;color:#eee;display:flex;flex-direction:column;align-items:center;min-height:100vh}
+#top{width:min(560px,94vw);display:flex;justify-content:space-between;align-items:center;padding:14px 0;color:#999}
+button{font:inherit;border:0;border-radius:10px;padding:10px 16px;background:#2a2a2a;color:#eee}
+#card{width:min(560px,94vw);min-height:260px;margin:10px 0;background:#1c1c1e;border-radius:18px;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;box-sizing:border-box;font-size:26px;cursor:pointer;user-select:none}
+#card.back{background:#16223a;font-size:22px}
+#row{display:flex;gap:12px;width:min(560px,94vw)}
+#row button{flex:1;padding:16px}
+#no{background:#5a2323}#yes{background:#1f5a2f}
+</style></head><body>
+<div id="top"><span id="stat"></span><span><button id="ord"></button> <button id="dir"></button> <button id="reset">Сброс</button></span></div>
+<div id="card"></div>
+<div id="row"><button id="no">Ещё раз</button><button id="yes">Знаю</button></div>
+<script>
+const raw=`Foreign Minister | министр иностранных дел
+State Secretary | Госсекретарь США (министр иностранных дел США)
+Foreign Secretary | министр иностранных дел Великобритании
+Foreign Ministry | Министерство иностранных дел
+State Department | Госдепартамент (МИД США)
+Foreign Office | МИД Великобритании
+President | президент
+Vice President | вице-президент (заместитель)
+Premier | премьер-министр
+Deputy Prime Minister | заместитель премьер-министра
+Head of State | глава государства
+Heads of State | главы государств
+The UN Secretary-General | Генеральный секретарь ООН
+people | 1) люди; 2) народ, нация
+counterpart | коллега, человек на аналогичном посту в другой стране
+to arrive (in a country/city, at a station/airport) | прибыть (приехать)
+arrival | прибытие, приезд
+invitation | приглашение
+at the invitation | по приглашению
+to accept an invitation | принять приглашение
+to reject an invitation (syn. to turn down) | отклонить приглашение
+to convey an invitation | передать приглашение
+to announce (syn. to report) | заявить, сообщить
+forthcoming | предстоящий
+a visit | визит
+an official visit | официальный визит
+an unofficial visit | неофициальный визит
+a state visit | государственный визит
+a 3-day visit | трёхдневный визит
+a friendly visit | дружеский визит
+a return visit | ответный визит
+to arrive on a visit | прибыть с визитом
+to be on a visit to a country | находиться с визитом в стране
+to pay (make) a visit | нанести визит
+talks (syn. negotiations) | переговоры
+talks on the Middle East | переговоры по Ближнему Востоку
+two-day talks | двухдневные переговоры
+bilateral talks | двусторонние переговоры
+summit (top-level) talks | переговоры на высшем уровне
+to hold (carry out, have) talks | проводить переговоры
+to accompany | сопровождать
+to be accompanied by | в сопровождении (кого-то сопровождали)
+a representative | представитель
+to represent smb | представлять кого-либо
+to focus on | сосредоточить внимание на
+market | рынок
+oil market | нефтяной рынок
+relations | отношения
+friendly relations | дружеские отношения
+to establish diplomatic relations | установить дипломатические отношения
+to break off relations | разорвать отношения
+to improve relations | улучшать отношения
+to develop relations | развивать отношения
+contacts (syn. ties, links) | контакты, связи
+further contacts | дальнейшие контакты
+broadening contacts | расширяющиеся контакты
+to establish contacts | устанавливать контакты
+to develop contacts | развивать контакты
+to broaden contacts | расширять контакты
+communique | коммюнике
+a joint communique | совместное коммюнике
+to issue a communique | выпустить коммюнике
+the communique says | в коммюнике говорится, что
+a wide range | широкий круг (проблем)
+to head a delegation (syn. to lead) | возглавлять делегацию
+The delegation is headed (led) by... | делегацию возглавляет...
+a stay | пребывание (в стране, городе)
+a 2-day stay | двухдневное пребывание
+a week's stay | пребывание в течение недели
+an adviser | советник
+to include | включать
+including ... | включая ...
+cooperation | сотрудничество
+scientific cooperation | научное сотрудничество
+technological cooperation | техническое сотрудничество
+trade | торговля, торговый
+an ambassador | посол
+The Finnish ambassador to Moscow | посол Финляндии в Москве
+an embassy | посольство
+to aim at (syn. to direct) | нацелить, направить на
+to be aimed at | быть направленным (нацеленным) на
+an aim (syn. purpose, objective, goal, target) | цель
+to overcome | преодолевать
+to overcome differences (difficulties, obstacles) | преодолевать разногласия (трудности, препятствия)
+a treaty | договор
+to sign a treaty | подписать договор
+an agreement | соглашение
+to sign an agreement | подписать соглашение
+good will | добрая воля
+defence | оборона
+Defence Minister | министр обороны
+topical (syn. burning) | актуальный, злободневный (о проблеме, вопросе)
+current | текущий
+current news (events) | последние известия (новости, события)
+current situation | текущая обстановка
+mutual | взаимный
+mutual understanding | взаимопонимание
+mutual interest | взаимный интерес
+questions of mutual interest | вопросы, представляющие взаимный интерес
+according to | согласно ч-л
+spokesman | представитель (выразитель мнения лиц, группы)
+major | важнейший, крупнейший, главный
+major events (developments) | основные события
+a landmark | веха
+to design | намереваться, планировать
+to be designed to do smth | предназначаться для того, чтобы
+to cement | скреплять неразрывными узами, устанавливать прочную связь
+to welcome (syn. to greet) | приветствовать, встречать
+at the airport he was welcomed (greeted) by ... | в аэропорту его приветствовал(и) ...
+to give smb a warm welcome | оказать к-л тёплый приём
+to get a warm welcome | получить тёплый приём
+efforts | усилия
+to make efforts | делать усилия
+atmosphere | атмосфера
+cordiality | сердечность, радушие
+to exchange views (opinions) | обменяться мнением
+to exchange experience | обменяться опытом
+to exchange delegations | обменяться делегациями
+an exchange of | обмен ч-л
+prospects | перспективы
+to provide for (syn. to envisage) | предусматривать, обеспечивать
+as well as | а также
+bilateral | двусторонние
+multilateral | многосторонние
+a number of | ряд ч-л (вопросов, проблем), несколько
+issue | проблема (сложная), вопрос (спорный)
+regional | региональный
+matter | дело, вопрос
+regional and international matters | региональные и международные проблемы
+to rule out | исключить ч-л
+to call on smb for smth (to do smth) | призвать к-л к ч-л (сделать ч-л)
+to express | выражать
+to express confidence (desire, satisfaction, willingness) | выражать уверенность (желание, удовлетворение, готовность)
+to deal with | заниматься ч-л, рассматривать (обсуждать) ч-л
+to add | добавить
+dangerous | опасный
+hotbeds of tension | очаги напряжённости
+farewell | прощальный
+ceremony | церемония
+to satisfy | удовлетворять
+to be satisfied with | быть удовлетворённым, довольным ч-л
+satisfaction | удовлетворение
+to note | отмечать (в речи)
+toward | к, по направлению к
+assessment | оценка
+to assess smth | оценивать, давать оценку
+to reiterate | повторять снова и снова, подтвердить снова
+to deepen | углублять
+in the course of | в ходе ч-л
+to exchange | обмениваться
+to exchange opinions (views) on | обменяться мнением по ...
+to exchange visits (experience) | обменяться визитами (опытом)
+to touch | коснуться ч-л (в речи, статье)
+security | безопасность
+to emphasize (syn. to stress, to underline) | подчеркнуть, выделить
+to solve | решать (проблему, вопрос)
+to resolve, to settle | решать, урегулировать
+solution (syn. settlement) | решение
+disputable | спорный
+dispute | спор
+through negotiations | путём переговоров
+to forge | выковывать, вырабатывать, строить (отношения)
+to forge a special relationship | устанавливать особые отношения
+to address | обращаться с речью, выступить с речью на ...
+a bid (syn. an attempt) | попытка
+to suspend | приостанавливать, временно прекращать
+to be suspended | быть приостановленным
+withdrawal | вывод (войск)
+to withdraw | выводить (войска) из ...
+an appeal | обращение, призыв
+attitude to | отношение к ...
+to give an impetus (syn. to give a boost to smth) | послужить стимулом, дать толчок
+to strengthen | укреплять
+to strengthen trust | укреплять доверие
+close | близкий
+to reveal | обнаружить, открыть (для себя)
+a frontier (syn. a border) | граница
+disarmament | разоружение
+arms | оружие
+arms control | контроль над вооружением
+commitment | приверженность ч-л, преданность
+to be committed to | быть преданным
+to prevent smb from doing smth | помешать к-л сделать ч-л
+to achieve | достичь, добиться ч-л
+to achieve security | обеспечить безопасность
+a summit meeting | встреча (совещание) на высшем уровне
+to boost | способствовать развитию, росту
+to be due | должен (сделать ч-л)
+to give substance to | наполнить конкретным содержанием, подкрепить делами
+to reduce smth | уменьшить, сократить
+reduction | сокращение
+to promote smth | способствовать, содействовать
+to promote ties, cooperation | способствовать связям, сотрудничеству
+itinerary | маршрут (предполагаемый), программа поездки, визита
+concern | забота, беспокойство
+to raise concern | вызвать обеспокоенность
+to be concerned with | быть обеспокоенным ч-л, выражать обеспокоенность
+all parties concerned | все заинтересованные стороны
+to pursue | вести, проводить (курс, политику)
+to pursue a policy | проводить политику
+policy | политика
+to reject | отклонять, отвергать
+to influence | оказывать воздействие (давление) на ..., влиять на ...
+to accuse smb of smth | обвинять к-л в ч-л
+to sponsor | поддерживать, организовывать
+to isolate | изолировать от
+urgent | срочный, настоятельный
+to tackle | решать (биться над решением), рассматривать вопрос
+to tackle differences | решать разногласия
+to tackle a problem (syn. to decide) | решать проблему
+a rival (syn. an adversary) | соперник, противник
+rivalry | соперничество, противостояние
+to consider | рассматривать, считать
+uninhabited | необитаемый (остров)
+rapprochement | сближение (между государствами)
+close cooperation | тесное сотрудничество
+broad cooperation (syn. large-scale, wide-scale) | широкое сотрудничество
+versatile cooperation (syn. many-sided, multifaced, multiform, multisided) | многостороннее сотрудничество
+fruitful cooperation | плодотворное сотрудничество
+comprehensive cooperation | всеобъемлющее сотрудничество
+business (business-like) cooperation | деловое сотрудничество
+cooperation in research work | сотрудничество в научно-исследовательской области
+to cooperate | сотрудничать
+to cooperate in the field (sphere, branch, area) of economy | сотрудничать в области экономики
+an agreement (on) (syn. a contract, a deal, an accord) | соглашение, договор (по, с)
+a preliminary agreement | предварительное соглашение
+a long-term agreement | долгосрочное соглашение
+a short-term agreement | краткосрочное соглашение
+a unilateral agreement | одностороннее соглашение
+a bilateral agreement | двустороннее соглашение
+a multilateral agreement | многостороннее соглашение
+an intergovernmental agreement | межправительственное соглашение
+to reach an agreement (syn. to come to an agreement) | прийти к соглашению
+to conclude an agreement | заключить договор, соглашение
+to ratify an agreement | ратифицировать соглашение
+to make (strike) a bargain | заключить выгодную сделку
+to cancel an agreement | аннулировать соглашение
+on an agreement | по договорённости
+under an agreement | по соглашению
+to sign | подписать
+signing | подписание
+a signature | подпись
+a signatory | сторона, подписавшая документ
+trade (syn. commerce) | торговля
+foreign trade | внешняя торговля
+trade (commercial) relations (ties, links) | торговые отношения (связи)
+trade accord (agreement, contract) | торговое соглашение
+trade turnover | торговый оборот
+trade exchange | торговый обмен
+trade partner | торговый партнёр
+to do trade (syn. to conduct trade) | вести торговлю
+to extend (syn. to expand, enlarge, broaden, spread) | расширять
+to extend trade ties (links) | расширять торговые связи
+extension (syn. a spread) | расширение
+extension of all-round cooperation | расширение всестороннего сотрудничества
+extensive | широкий
+on an extensive scale | в широком масштабе
+to boost (trade, output) | способствовать росту, повышать, усиливать
+to boost trade | расширять торговлю
+to boost output | повышать выпуск продукции
+a boost | быстрый рост, повышение
+to give a boost | ускорять, давать толчок
+links (syn. ties, contacts, relations) | связи
+cultural links | культурные связи
+business links | деловые связи
+interstate links | межгосударственные связи
+(good-)neighbourly relations | добрососедские отношения
+long-standing relations | давнишние связи
+consular links | отношения на уровне консульств
+to maintain vast ties | поддерживать широкие связи
+to build relations | строить отношения
+to forge relations | строить (ковать) отношения
+to strengthen ties, relations | укреплять отношения
+to break up (off) ties, relations | разрывать отношения
+to resume, renew ties, relations | возобновлять отношения
+a resumption, renewal | возобновление
+to provide (for) (syn. to envisage) | предусматривать, обеспечивать
+to provide assistance | предоставлять помощь
+provision | 1) обеспечение, предоставление; 2) положение, условие (договора)
+provision of loans | предоставление займов
+provisional | 1) временный; 2) предварительный
+to establish | основывать, учреждать, создавать
+to establish a trade organisation (syn. to set up) | учредить торговую организацию
+to grant | предоставлять
+to grant credits (loans) | предоставлять кредиты (займы)
+to grant most favoured nation status (treatment) | предоставлять режим наибольшего благоприятствования
+a venture (syn. an enterprise, business, project) | предприятие
+a joint venture | совместное предприятие
+to pass legislation | принять закон
+deliveries | поставки, снабжение
+goods delivery | поставка товаров
+fuel delivery | поставка горючего (топлива)
+delivery of equipment | поставка оборудования
+to increase deliveries | увеличивать поставки
+stable basis (syn. solid, firm basis) | прочная основа
+on the basis of | на основе
+to lay the basis for | заложить основы для
+advantage (syn. benefit) | выгода, преимущество
+to seek advantage (over) | искать выгоду, стремиться к выгоде (над)
+to take advantage of smth | воспользоваться чем-л., извлекать выгоду из ч-л
+to one's best advantage | наивыгоднейшим образом
+advantageous (syn. beneficial) | выгодный
+mutually advantageous terms | взаимовыгодные условия
+goods | товары
+industrial goods | промышленные товары
+light industry goods | товары лёгкой промышленности
+food industry goods | товары пищевой промышленности
+consumer goods | товары широкого потребления
+high technology (high-tech) goods | высокотехнологичные товары
+payments | платежи
+to promote (syn. to develop) | развивать, содействовать, помогать
+to promote cooperation | развивать сотрудничество
+to promote the relaxation of international tension (detente) (syn. to further) | способствовать ослаблению международной напряжённости (разрядке)
+restrictions (syn. sanctions, embargo, ban) | ограничения
+to apply restrictions in trade | применять (использовать) ограничения
+to violate an embargo | нарушать эмбарго
+to extend sanctions | продлить, распространить санкции
+the extension of existing sanctions | продление существующих санкций
+to drop restrictions, sanctions (syn. to remove, lift, suspend, ease, abandon) | отменить (снять) ограничения, санкции
+to impose sanctions | наложить (ввести) санкции
+output | продукция, продукт, выпуск, выработка
+output of a factory | выпуск продукции завода
+output of electric power | выработка электроэнергии
+output of foodstuffs | выпуск пищевых продуктов
+gross industrial output | валовый выпуск промышленной продукции
+grain output | сбор зерна
+the volume of agricultural output | объём сельскохозяйственной продукции
+diverse fields | различные области
+assistance (syn. aid, help) | помощь
+to give assistance (syn. to render aid (help)) | оказать помощь
+to offer assistance, help | предлагать помощь
+disinterested assistance | бескорыстная помощь
+meaningful assistance (syn. considerable) | значительная помощь
+to contribute to | способствовать чему-л., делать (вносить) вклад в
+contribution | вклад
+financial contribution | денежный взнос (вклад)
+to make a contribution | делать вклад
+build up technical manpower | создавать технические кадры
+increase in trade | рост, увеличение торговли
+to be on the increase | расти, увеличиваться
+to increase | расти, увеличиваться, возрастать
+to increase in scope | увеличиваться в объёме
+to explore national resources | разведывать (исследовать) народнохозяйственные ресурсы
+exploration of outer space | исследование космоса
+to train personnel (syn. cadre) | подготавливать (обучать) кадры
+benefit (syn. profit) | выгода, польза
+common benefit | общая выгода
+trade benefit | торговая выгода
+to yield benefit | приносить (давать) выгоду
+to benefit (from) | 1) помогать, приносить пользу; 2) извлекать пользу, выгоду
+to embrace fields (spheres) | охватывать области
+average growth rate | средний темп роста
+to grow at a good rate | расти высокими темпами, быстро возрастать
+to amount (to) | доходить до, составлять, равняться
+to emerge (syn. to appear, rise, come forth) | появляться, всплывать, возникать
+emergence | выход, появление
+emergency | непредвиденный случай, чрезвычайные обстоятельства
+emergency powers | чрезвычайные полномочия
+emergency relief | чрезвычайная помощь
+to proclaim the state of emergency | объявить чрезвычайное положение
+a range of joint economic studies | ряд (круг) совместных экономических исследований
+to carry out joint economic studies | проводить совместные экономические исследования
+to launch technical studies (syn. to start, set going) | предпринимать технологические исследования
+to implement economic projects (syn. to accomplish, to put into life) | осуществлять экономические проекты
+a letter of intent | протокол (письмо) о намерениях
+a launch site | площадка для запуска (ракет)
+to convert a military complex to (syn. change, turn into) | переделывать (конвертировать) военный комплекс
+competitive household (domestic) appliances | конкурентоспособные бытовые электроприборы
+competitive (syn. rival) | конкурирующий, конкурентоспособный
+a competitor | конкурент, соперник
+a competition (syn. rivalry) | конкуренция, соревнование
+a fierce competition | жёсткая конкуренция
+to improve the competitiveness of one's economy | увеличить конкурентоспособность страны
+to jeopardise (syn. to risk, endanger) | подвергать риску, рисковать
+to pay off one's debt (syn. to settle one's debt) | выплатить долг(и)
+a debtor | должник
+to be in debt | быть в долгу, быть должником
+to smooth (smoothen) trade relations (syn. to ease, soften) | сглаживать торговые отношения
+a blueprint (syn. a plan, outline) | проект, план, программа
+to reach only the blueprint stage | быть лишь на стадии проектирования
+to foster cooperation (syn. to support, promote) | благоприятствовать, поощрять сотрудничество
+interest (в чём-л) | доля (в чём-л), прибыль
+to excel (in, at) | выдаваться, превосходить
+excellence | превосходство, высокое качество
+excellent | превосходный, отличный
+expertise | экспертиза
+trade transparency | прозрачность осуществления торговых отношений
+transparent | прозрачный, ясный, откровенный, честный
+to unveil plans (syn. to disclose, reveal, expose, uncover) | раскрывать (открывать) планы
+large-scale (syn. massive, giant, king-size) | крупномасштабный, массовый, крупный
+on a large scale | в крупном масштабе
+manufacturing industry | обрабатывающая промышленность
+to manufacture goods (syn. to produce, make) | производить товары
+manufactured goods | промышленные товары
+a manufacturer | товаропроизводитель
+long-term investment | долгосрочные капиталовложения
+long-term policy | перспективная политика
+long-term projection | долгосрочное прогнозирование
+investment project | инвестиционный проект
+to outline a policy | намечать политический курс, обрисовывать (в общих чертах)
+an outline | план, схема
+an outline for a (political) settlement | план (политического) урегулирования
+outlines (pl.) | основы, основные принципы
+to revitalise ties (syn. to revive, renew, refresh) | оживлять связи
+to cover (syn. to embrace, include) | здесь: предусматривать, охватывать, относиться к
+to foresee | предвидеть, здесь: предусматривать
+processing | обработка, переработка продукции
+to process | обрабатывать, подвергать обработке
+an export trade post | торговое представительство (в зарубежной стране)
+determination | решительность, решимость
+determined | решительный, решившийся
+determined character | твёрдый характер
+to determine a policy | определять политику
+to determine upon a course of action | определить линию поведения, решить как действовать
+a promotion | 1) содействие, поощрение, продвижение; 2) повышение по службе
+a promoter | покровитель, патрон, тот, кто (или что) способствует чему-либо
+to fund | финансировать
+fund raising | сбор средств
+fund-raising campaign | кампания по сбору (денежных) средств
+government funds | правительственные фонды
+to get short of funds | остаться без денег
+an abolition | отмена, уничтожение, упразднение
+abolition of chemical weapons | ликвидация запасов химического оружия
+to abolish (syn. to destroy, annihilate) | отменять, уничтожать, упразднять
+to create jobs (syn. to provide jobs) | предоставить рабочие места, обеспечить работой
+job creation | создание рабочих мест
+to staff | обеспечивать персоналом, укомплектовать штаты
+staff (syn. personnel) | служебный персонал, штат служащих
+to be on the staff | быть в штате
+the staff of a newspaper | сотрудники газеты
+a reciprocal Most Favoured Nation (MFN) clause | пункт о взаимном предоставлении режима наибольшего благоприятствования (в торговле)
+a bilateral investment promotion | обоюдное (двустороннее) поощрение капиталовложений
+an investment protection | защита капиталовложений
+to invest (heavily) | делать (большие) капиталовложения
+to invest in business | вкладывать деньги в бизнес
+an investor | вкладчик
+a row | 1) шум, гвалт; 2) спор, ссора
+to make (to kick up) a row | поднимать шум, скандал; протестовать
+to row | скандалить, шуметь
+to enter into a pact | заключить договор
+Pact of Peace | Пакт Мира
+a non-aggression pact | договор о ненападении
+to provide an economic underpinning | обеспечить экономическую поддержку
+a gulf (syn. a gap) | бездна, пропасть, здесь: разрыв
+to widen a gulf | увеличить разрыв
+a drive (Am.) | гонка, спешка; кампания по сбору средств; здесь: стремление
+a drive for peace | движение за мир
+a drive for profits | погоня за прибылями
+a drive-in (Am.) | открытый кинотеатр-площадка, куда зрители въезжают на автомобилях
+to ban | запрещать, налагать запрет
+to ban nuclear weapons | запрещать ядерное оружие
+to ban nuclear tests | запрещать испытания ядерного оружия
+to ban propaganda of war | запрещать пропаганду войны
+a ban on smth | запрещение, запрет чего-л.
+a move (syn. a step, action) | шаг, ход, поступок, движение
+a political move | политическая инициатива (ход, манёвр)
+to make a move | предпринять что-л., начать действовать
+to persecute ethnic minorities | преследовать (подвергать гонению) этнические меньшинства
+to enact | постановлять, предписывать, вводить в закон
+enacting clauses | параграфы, содержащие суть постановления
+enactment | введение закона в силу; указ, закон
+to pass | принимать, проходить (об официальном документе)
+to pass an act | принимать закон
+to pass an amendment | принять поправку
+to pass a bill | принять законопроект
+to pass a resolution | принять резолюцию
+to pass a sentence | вынести приговор
+to step up repression | усилить репрессии
+to step up the arms race | усилить гонку вооружений
+an entry into (syn. an accession, access) | вступление в ...
+to urge | побуждать, настаивать на
+to urge an end to | настаивать на отмене (прекращении действия)
+to bar | отстранять, исключать, запрещать
+to design | предполагать, предназначать; здесь: предусматривать
+a design | проект, план, замысел
+designed | предназначенный, соответствующий плану
+rival | соперничающий, конкурирующий
+rival nations | соперничающие страны
+rival firms | конкурирующие фирмы
+a rival | соперник, конкурент; (воен.) противник
+rivalry | соперничество, конкуренция
+friendly rivalry | дружеское соревнование
+to certify an agreement | удостоверять, подтверждать соглашение
+to halt | приостанавливать, прекращать
+to halt the proliferation of nuclear weapons | прекратить (остановить) распространение ядерного оружия
+to halt tests (syn. to end, stop) | прекратить испытания
+a hurdle (syn. hindrance, obstruction, obstacle) | препятствие
+to remove a hurdle | устранить препятствие
+for good (syn. for ever) | навсегда
+ammunition | боеприпасы, снаряды
+to enjoy trade surplus | получать прибыль от торговли
+to suffer tariffs | облагаться пошлиной
+to apply tariffs to | применять систему тарифов к ...
+General Agreement on Tariffs and Trade (GATT) | Генеральное соглашение по таможенным тарифам и торговле`;
+const all=raw.split('\n').map(l=>{const [en,ru]=l.split(' | ');return{en,ru,k:l}});
+const $=id=>document.getElementById(id);
+const ls=(()=>{try{localStorage.x=1;return localStorage}catch(e){return{}}})(); // storage may be blocked (data:/private mode)
+let known=new Set(JSON.parse(ls.known||'[]')),rev=ls.rev==='1',shuf=ls.shuf!=='0',q=[],back=false;
+const save=()=>{try{ls.known=JSON.stringify([...known]);ls.rev=rev?1:0;ls.shuf=shuf?1:0}catch(e){}};
+function build(){q=all.filter(c=>!known.has(c.k));if(shuf)q.sort(()=>Math.random()-.5);back=false;draw()}
+function draw(){
+  $('dir').textContent=rev?'RU → EN':'EN → RU';
+  $('ord').textContent=shuf?'Вперемешку':'По порядку';
+  $('stat').textContent=`Выучено ${known.size} / ${all.length}`;
+  const c=q[0],el=$('card');
+  if(!c){el.className='';el.textContent='Всё выучено 🎉';return}
+  el.className=back?'back':'';
+  el.textContent=(rev!==back)?c.ru:c.en;
+}
+$('card').onclick=()=>{back=!back;draw()};
+$('yes').onclick=()=>{if(!q[0])return;known.add(q.shift().k);save();back=false;draw()};
+$('no').onclick=()=>{if(!q[0])return;q.push(q.shift());back=false;draw()};
+$('dir').onclick=()=>{rev=!rev;save();back=false;draw()};
+$('ord').onclick=()=>{shuf=!shuf;save();build()};
+$('reset').onclick=()=>{if(confirm('Сбросить прогресс?')){known=new Set();save();build()}};
+build();
+</script></body></html>
